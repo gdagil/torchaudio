@@ -10,7 +10,7 @@ import torch
 from setuptools import find_packages, setup
 from tools import setup_helpers
 
-ROOT_DIR = Path(__file__).parent.resolve()
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 def _run_cmd(cmd):
