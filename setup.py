@@ -21,7 +21,7 @@ def _run_cmd(cmd):
 
 
 def _get_version(sha):
-    with open(ROOT_DIR / "version.txt", "r") as f:
+    with open(f"{ROOT_DIR}/version.txt", "r") as f:
         version = f.read().strip()
     if os.getenv("BUILD_VERSION"):
         version = os.getenv("BUILD_VERSION")
@@ -32,7 +32,7 @@ def _get_version(sha):
 
 def _make_version_file(version, sha):
     sha = "Unknown" if sha is None else sha
-    version_path = ROOT_DIR / "src" / "torchaudio" / "version.py"
+    version_path = f"{ROOT_DIR}/src/torchaudio/version.py"
     with open(version_path, "w") as f:
         f.write(f"__version__ = '{version}'\n")
         f.write(f"git_version = '{sha}'\n")
@@ -50,12 +50,12 @@ class clean(distutils.command.clean.clean):
         distutils.command.clean.clean.run(self)
 
         # Remove torchaudio extension
-        for path in (ROOT_DIR / "src").glob("**/*.so"):
+        for path in Path(f"{ROOT_DIR}/src").glob("**/*.so"):
             print(f"removing '{path}'")
             path.unlink()
         # Remove build directory
         build_dirs = [
-            ROOT_DIR / "build",
+            f"{ROOT_DIR}/build",
         ]
         for path in build_dirs:
             if path.exists():
